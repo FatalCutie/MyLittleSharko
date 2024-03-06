@@ -12,6 +12,22 @@ local TimeInMinutes = math.floor(TimeInSeconds/60)
   --Between 22 and 26 seconds per quip
   --8 Second reading time
 
+  local myFrame = CreateFrame("Frame", "MyAddonImageFrame", UIParent)
+  myFrame:SetSize(100,100)
+  myFrame:SetPoint("CENTER", UIParent, "CENTER")
+
+  local myTexture = myFrame:CreateTexture("MyAddonImageTexture", "BACKGROUND")
+  myTexture:SetAllPoints(myFrame) --texture covers all of frame
+  myTexture:SetTexture("Interface\\AddOns\\MyLittleSharko\\Assets\\resizedsharko.tga")
+  myTexture:SetBlendMode("BLEND")
+
+  myFrame:RegisterEvent("PLAYER_LOGIN")
+myFrame:SetScript("OnEvent", function(self, event, ...)
+    if event == "PLAYER_LOGIN" then
+        myFrame:Show() -- Show the frame when the player logs in
+    end
+end)
+
 local function dialogue()
     local choice = ""   
     local jokebook = {}
