@@ -12,15 +12,17 @@ local TimeInMinutes = math.floor(TimeInSeconds/60)
   --Between 22 and 26 seconds per quip
   --8 Second reading time
 
+  --Initilzed DM3
   local myCreatureFrame = CreateFrame("Frame", "MyAddonImageFrame", UIParent)
   myCreatureFrame:SetSize(200,200)
   myCreatureFrame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -150, 100)
-
+  --Puts DM3 on the frame
   local myCreatureTexture = myCreatureFrame:CreateTexture("MyAddonImageTexture", "BACKGROUND")
   myCreatureTexture:SetAllPoints(myCreatureFrame) --texture covers all of frame
   myCreatureTexture:SetTexture("Interface\\AddOns\\MyLittleSharko\\Assets\\resizedsharko.tga")
   myCreatureTexture:SetBlendMode("BLEND")
 
+  --Create DM3 on Startup
   myCreatureFrame:RegisterEvent("PLAYER_LOGIN")
 myCreatureFrame:SetScript("OnEvent", function(self, event, ...)
     if event == "PLAYER_LOGIN" then
@@ -28,19 +30,24 @@ myCreatureFrame:SetScript("OnEvent", function(self, event, ...)
     end
 end)
 
+--Create Speech Bubble
 local speechBubbleFrame = CreateFrame("Frame", "SpeechBubbleFrame", UIParent)
-speechBubbleFrame:SetSize(250, 100)
-speechBubbleFrame:SetPoint("BOTTOM", myCreatureFrame, "TOP", -75, 10)
+speechBubbleFrame:SetSize(300, 200)
+speechBubbleFrame:SetPoint("BOTTOM", myCreatureFrame, "TOP", -180, -70)
 speechBubbleFrame:Hide()
 
-local speechBubbleTexture = speechBubbleFrame:CreateTexture("SpeechBubbleTexture", "BACKGROUND")
-speechBubbleTexture:SetAllPoints(speechBubbleFrame)
-speechBubbleTexture:SetColorTexture(1, 1, 1, 0.7)
+--Texture Speech Bubble
+local speechBubbleTexture = speechBubbleFrame:CreateTexture("MyAddonImageTexture", "BACKGROUND")
+speechBubbleTexture:SetAllPoints(speechBubbleFrame) --texture covers all of frame
+speechBubbleTexture:SetTexture("Interface\\AddOns\\MyLittleSharko\\Assets\\quoteBox512.tga")
+speechBubbleTexture:SetBlendMode("BLEND")
 
+--Create Speech Bubble Text
 local speechText = speechBubbleFrame:CreateFontString("SpeechText", "ARTWORK", "GameFontNormal")
 speechText:SetWidth(speechBubbleFrame:GetWidth()-8)
-speechText:SetPoint("CENTER", speechBubbleFrame, "CENTER", 0, 0)
+speechText:SetPoint("CENTER", speechBubbleFrame, "CENTER", 0, 15)
 speechText:SetTextColor(0, 0, 0)
+speechText:SetFont("Fonts\\FRIZQT__.TTF", 16)
 
 -- Enable word wrapping
 speechText:SetWordWrap(true)
@@ -69,7 +76,7 @@ local function dialogue()
     jokebook[14] = "Don't you get tired of being nice?"
     jokebook[15] = "Every good thing that happens to you in this game is preplanned like a show. There's an audience waiting for your downfall."
     jokebook[16] = "Fish names can be so silly. Did you know there's a seabream species calls 'Boops Boops'? There's a 'Dumb Gulper Shark' too. How mean!"
-    jokebook[17] = "BM Hunter? Daring today, aren't we?"
+    jokebook[17] = "Rolling a " .. UnitClass("player") .."? Daring today, aren't we?"
     jokebook[18] = "HINT: DIE!!"
     jokebook[19] = "HINT: Don't tell the Internal Revenue Sharkos that I'm here. Why? No particular reason."
     jokebook[20] = "HINT: Getting jumped at Duskwood? Just say 'no'! Legally, the other faction can't jump you if you refuse."
@@ -223,14 +230,14 @@ local function Welcome()
   talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
 end
 
--- Function to make the creature talk on command
+-- Function to make the DM3 talk on command
 local function TalkCommandHandler()
   -- If there's an existing timer, cancel it
   if talkTimer then
       talkTimer:Cancel()
   end
 
-  -- Make the creature talk immediately
+  -- Make DM3 talk immediately
   MakeCreatureTalk()
 end
 
