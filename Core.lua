@@ -1,4 +1,4 @@
-print("Thank you for contracting [ CORAL FEVER ] " .. UnitName("player") .. "!")
+--print("Thank you for contracting [ CORAL FEVER ] " .. UnitName("player") .. "!")
 
 function tablelength(T)
     local count = 0
@@ -29,8 +29,8 @@ myCreatureFrame:SetScript("OnEvent", function(self, event, ...)
 end)
 
 local speechBubbleFrame = CreateFrame("Frame", "SpeechBubbleFrame", UIParent)
-speechBubbleFrame:SetSize(200, 50)
-speechBubbleFrame:SetPoint("BOTTOM", myCreatureFrame, "TOP", 0, 10)
+speechBubbleFrame:SetSize(250, 100)
+speechBubbleFrame:SetPoint("BOTTOM", myCreatureFrame, "TOP", -75, 10)
 speechBubbleFrame:Hide()
 
 local speechBubbleTexture = speechBubbleFrame:CreateTexture("SpeechBubbleTexture", "BACKGROUND")
@@ -38,8 +38,13 @@ speechBubbleTexture:SetAllPoints(speechBubbleFrame)
 speechBubbleTexture:SetColorTexture(1, 1, 1, 0.7)
 
 local speechText = speechBubbleFrame:CreateFontString("SpeechText", "ARTWORK", "GameFontNormal")
+speechText:SetWidth(speechBubbleFrame:GetWidth()-8)
 speechText:SetPoint("CENTER", speechBubbleFrame, "CENTER", 0, 0)
 speechText:SetTextColor(0, 0, 0)
+
+-- Enable word wrapping
+speechText:SetWordWrap(true)
+speechText:SetJustifyH("CENTER") -- Center the text within the width
 
 local function dialogue()
     local choice = ""   
@@ -199,8 +204,23 @@ local function MakeCreatureTalk()
   end)
 end
 
+local function Welcome()
+  newText = "Thank you for contracting [ CORAL FEVER ] " .. UnitName("player") .. "!"
+  UpdateSpeechText(newText)
+
+  -- Show the speech bubble
+  ToggleSpeechBubble(true)
+
+  -- Schedule a timer to hide the speech bubble after 10 seconds
+  C_Timer.After(10, function()
+      ToggleSpeechBubble(false)
+  end)
+end
+
+Welcome()
+
 -- Schedule a repeating timer to make the creature talk every 45 seconds
-C_Timer.NewTicker(10, MakeCreatureTalk)
+C_Timer.NewTicker(45, MakeCreatureTalk)
 
 --[[
 countdownTime = 5 --five seconds
