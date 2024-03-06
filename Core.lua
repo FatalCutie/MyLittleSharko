@@ -6,21 +6,67 @@ function tablelength(T)
     return count
   end
 
+  --[[
 local TimeInSeconds = 22
 local TimeInMinutes = math.floor(TimeInSeconds/60)
 
   --Between 22 and 26 seconds per quip
   --8 Second reading time
+  --]]
 
   --Initilzed DM3
-  local myCreatureFrame = CreateFrame("Frame", "MyAddonImageFrame", UIParent)
-  myCreatureFrame:SetSize(200,200)
-  myCreatureFrame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -150, 100)
-  --Puts DM3 on the frame
-  local myCreatureTexture = myCreatureFrame:CreateTexture("MyAddonImageTexture", "BACKGROUND")
-  myCreatureTexture:SetAllPoints(myCreatureFrame) --texture covers all of frame
-  myCreatureTexture:SetTexture("Interface\\AddOns\\MyLittleSharko\\Assets\\resizedsharko.tga")
-  myCreatureTexture:SetBlendMode("BLEND")
+  local myCreatureFrame = CreateFrame("Frame", "MyCreatureFrame", UIParent)
+  myCreatureFrame:SetSize(150,150)
+  myCreatureFrame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -75, 5)
+
+  local idleTextures = {
+    "Interface\\AddOns\\MyLittleSharko\\Assets\\closedMouthResize.tga",
+    "Interface\\AddOns\\MyLittleSharko\\Assets\\closedMouthSquish.tga",
+  }
+
+local currentSpriteIndex = 1 -- Start with the first sprite
+local spriteTimer -- Variable to hold the timer reference
+
+  
+
+  local function UpdateSpriteTexture()
+    myCreatureFrame.myCreatureTexture:SetTexture(idleTextures[currentSpriteIndex])
+  end
+
+local function SwitchSprites()
+    currentSpriteIndex = currentSpriteIndex % #idleTextures + 1
+    UpdateSpriteTexture()
+end
+
+-- Function to start the sprite switching
+local function StartBreathingAnimation()
+    spriteTimer = C_Timer.NewTicker(1, SwitchSprites) -- Switch sprites every 3 seconds
+end
+
+-- Function to stop the sprite switching
+local function StopBreathingAnimation()
+    if spriteTimer then
+        spriteTimer:Cancel()
+    end
+end
+
+--Puts DM3 on the frame
+myCreatureFrame.myCreatureTexture = myCreatureFrame:CreateTexture("MyCreatureTexture", "BACKGROUND")
+myCreatureFrame.myCreatureTexture:SetAllPoints(myCreatureFrame)
+myCreatureFrame.myCreatureTexture:SetTexture(idleTextures[currentSpriteIndex])
+myCreatureFrame.myCreatureTexture:SetBlendMode("BLEND")
+
+StartBreathingAnimation()
+
+  -- Register the event for addon loading
+  --[[
+  myCreatureFrame:RegisterEvent("ADDON_LOADED")
+  myCreatureFrame:SetScript("OnEvent", function(self, event, addon)
+    if event == "ADDON_LOADED" and addon == "MyLittleSharko" then
+        StartBreathingAnimation()
+    end
+  end)
+--]]
 
   --Create DM3 on Startup
   myCreatureFrame:RegisterEvent("PLAYER_LOGIN")
@@ -32,7 +78,7 @@ end)
 
 --Create Speech Bubble
 local speechBubbleFrame = CreateFrame("Frame", "SpeechBubbleFrame", UIParent)
-speechBubbleFrame:SetSize(300, 200)
+speechBubbleFrame:SetSize(250, 200)
 speechBubbleFrame:SetPoint("BOTTOM", myCreatureFrame, "TOP", -180, -70)
 speechBubbleFrame:Hide()
 
@@ -45,9 +91,9 @@ speechBubbleTexture:SetBlendMode("BLEND")
 --Create Speech Bubble Text
 local speechText = speechBubbleFrame:CreateFontString("SpeechText", "ARTWORK", "GameFontNormal")
 speechText:SetWidth(speechBubbleFrame:GetWidth()-8)
-speechText:SetPoint("CENTER", speechBubbleFrame, "CENTER", 0, 15)
+speechText:SetPoint("CENTER", speechBubbleFrame, "CENTER", 0, 14)
 speechText:SetTextColor(0, 0, 0)
-speechText:SetFont("Fonts\\FRIZQT__.TTF", 16)
+speechText:SetFont("Fonts\\FRIZQT__.TTF", 14) --font size
 
 -- Enable word wrapping
 speechText:SetWordWrap(true)
@@ -177,6 +223,7 @@ local function dialogue()
     jokebook[113] = "Goblins are real."
     jokebook[114] = "FACT: Goblins used to exist in medieval times, and still do."
     jokebook[115] = "FACT: Goblins can turn trees into gold."
+    jokebook[116] = "Frankly I find the idea of a bug that can think offensive."
     
 
     --Picks a funny joke to say (they are jokes for legal reasons)
