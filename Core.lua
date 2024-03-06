@@ -52,6 +52,7 @@ local function dialogue()
 
     --Thus Begins the Reckoning--
 
+    jokebook[0] = "I actually have access to a secret fifth meditation, I won't tell you how to get it though."
     jokebook[1] = "TIP: Overconfidence is a slow and insidious killer."
     jokebook[2] = "Just wait until I'm freed from the coil of your monitor."
     jokebook[3] = "HINT: This game is awful. The developers really suck."
@@ -172,11 +173,14 @@ local function dialogue()
     
 
     --Picks a funny joke to say (they are jokes for legal reasons)
-    choice = jokebook[math.random(tablelength(jokebook))]
+    choice = jokebook[math.random(tablelength(jokebook)) - 1]
+    --print(choice)
+    --print(tablelength(jokebook))
     return choice
 
 end 
 
+local talkTimer = nil -- Variable to hold the timer reference
 
 local function UpdateSpeechText(newText)
   speechText:SetText(newText)
@@ -202,6 +206,7 @@ local function MakeCreatureTalk()
   C_Timer.After(10, function()
       ToggleSpeechBubble(false)
   end)
+  talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
 end
 
 local function Welcome()
@@ -215,14 +220,32 @@ local function Welcome()
   C_Timer.After(10, function()
       ToggleSpeechBubble(false)
   end)
+  talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
 end
 
+-- Function to make the creature talk on command
+local function TalkCommandHandler()
+  -- If there's an existing timer, cancel it
+  if talkTimer then
+      talkTimer:Cancel()
+  end
+
+  -- Make the creature talk immediately
+  MakeCreatureTalk()
+end
+
+-- Register the slash command
+SLASH_MYADDON_TALK1 = "/telljoke"
+SlashCmdList["MYADDON_TALK"] = TalkCommandHandler
+
+-- Schedule the initial talk
 Welcome()
 
+--[[
 -- Schedule a repeating timer to make the creature talk every 45 seconds
 C_Timer.NewTicker(45, MakeCreatureTalk)
 
---[[
+
 countdownTime = 5 --five seconds
 
 function timer(dt)
