@@ -12,21 +12,34 @@ local TimeInMinutes = math.floor(TimeInSeconds/60)
   --Between 22 and 26 seconds per quip
   --8 Second reading time
 
-  local myFrame = CreateFrame("Frame", "MyAddonImageFrame", UIParent)
-  myFrame:SetSize(100,100)
-  myFrame:SetPoint("CENTER", UIParent, "CENTER")
+  local myCreatureFrame = CreateFrame("Frame", "MyAddonImageFrame", UIParent)
+  myCreatureFrame:SetSize(200,200)
+  myCreatureFrame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -150, 100)
 
-  local myTexture = myFrame:CreateTexture("MyAddonImageTexture", "BACKGROUND")
-  myTexture:SetAllPoints(myFrame) --texture covers all of frame
-  myTexture:SetTexture("Interface\\AddOns\\MyLittleSharko\\Assets\\resizedsharko.tga")
-  myTexture:SetBlendMode("BLEND")
+  local myCreatureTexture = myCreatureFrame:CreateTexture("MyAddonImageTexture", "BACKGROUND")
+  myCreatureTexture:SetAllPoints(myCreatureFrame) --texture covers all of frame
+  myCreatureTexture:SetTexture("Interface\\AddOns\\MyLittleSharko\\Assets\\resizedsharko.tga")
+  myCreatureTexture:SetBlendMode("BLEND")
 
-  myFrame:RegisterEvent("PLAYER_LOGIN")
-myFrame:SetScript("OnEvent", function(self, event, ...)
+  myCreatureFrame:RegisterEvent("PLAYER_LOGIN")
+myCreatureFrame:SetScript("OnEvent", function(self, event, ...)
     if event == "PLAYER_LOGIN" then
-        myFrame:Show() -- Show the frame when the player logs in
+        myCreatureFrame:Show() -- Show the frame when the player logs in
     end
 end)
+
+local speechBubbleFrame = CreateFrame("Frame", "SpeechBubbleFrame", UIParent)
+speechBubbleFrame:SetSize(200, 50)
+speechBubbleFrame:SetPoint("BOTTOM", myCreatureFrame, "TOP", 0, 10)
+speechBubbleFrame:Hide()
+
+local speechBubbleTexture = speechBubbleFrame:CreateTexture("SpeechBubbleTexture", "BACKGROUND")
+speechBubbleTexture:SetAllPoints(speechBubbleFrame)
+speechBubbleTexture:SetColorTexture(1, 1, 1, 0.7)
+
+local speechText = speechBubbleFrame:CreateFontString("SpeechText", "ARTWORK", "GameFontNormal")
+speechText:SetPoint("CENTER", speechBubbleFrame, "CENTER", 0, 0)
+speechText:SetTextColor(0, 0, 0)
 
 local function dialogue()
     local choice = ""   
@@ -160,6 +173,36 @@ local function dialogue()
 end 
 
 
+local function UpdateSpeechText(newText)
+  speechText:SetText(newText)
+end
+
+local function ToggleSpeechBubble(show)
+  if show then
+      speechBubbleFrame:Show()
+  else
+      speechBubbleFrame:Hide()
+  end
+end
+
+local function MakeCreatureTalk()
+  newText = ""
+  newText = dialogue()
+  UpdateSpeechText(newText)
+
+  -- Show the speech bubble
+  ToggleSpeechBubble(true)
+
+  -- Schedule a timer to hide the speech bubble after 10 seconds
+  C_Timer.After(10, function()
+      ToggleSpeechBubble(false)
+  end)
+end
+
+-- Schedule a repeating timer to make the creature talk every 45 seconds
+C_Timer.NewTicker(10, MakeCreatureTalk)
+
+--[[
 countdownTime = 5 --five seconds
 
 function timer(dt)
@@ -174,4 +217,4 @@ end
 local quip = dialogue()
 print(quip)
 
-    
+]]
