@@ -1,17 +1,14 @@
 --print("Thank you for contracting [ CORAL FEVER ] " .. UnitName("player") .. "!")
 LoadAddOn("MyLittleSharko_Assets_Scripts_dialogue")
 
-local MyAddonSettings = {
-  muteVolume = false
-}
 muteVolume = false
+sharkoVisible = true
+
+-- Load the settings
 
 
 local addonName, addonTable = ...
 
-function addonTable.OnLoad(self)
-  LoadAddOn("MyAddonMinimapButton")
-end
   --Initilzed DM3
   local myCreatureFrame = CreateFrame("Frame", "MyCreatureFrame", UIParent)
   myCreatureFrame:SetSize(150,150)
@@ -32,7 +29,8 @@ MyAddonSettingsFrame.name = "MyLittleSharko"
 InterfaceOptions_AddCategory(MyAddonSettingsFrame)
 
 local MuteAddonCheckbox = CreateFrame("CheckButton", "MuteAddonCheckbox", MyAddonSettingsFrame, "UICheckButtonTemplate")
-MuteAddonCheckbox:SetPoint("TOPLEFT", 16, -40)
+MuteAddonCheckbox:SetPoint("TOPLEFT", 16, -16)
+--MuteAddonCheckbox:GetFontString():SetText("Mute Sound")
 --MuteAddonCheckbox.text:SetText("Mute Addon Volume")
 
 MuteAddonCheckbox:SetScript("OnClick", function(self)
@@ -155,6 +153,7 @@ local function MakeCreatureTalk()
   -- Schedule a timer to hide the speech bubble after 10 seconds
   C_Timer.After(10, function()
       ToggleSpeechBubble(false)
+      talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
       if muteVolume == false then
         local finishSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\finishLouder.ogg"
         PlaySoundFile(finishSound, "Master")
@@ -162,23 +161,34 @@ local function MakeCreatureTalk()
       StopAnimations()
       StartIdleAnimation()
   end)
-  talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
+  
 end
 
 local function Welcome()
   newText = "Thank you for contracting [CORAL FEVER]! I'm your new personal assistant, Destroyman III. I'll be giving you helpful tips and tricks!"
   UpdateSpeechText(newText)
-  --StartTalkingAnimation()
+  StopAnimations()
+  StartTalkingAnimation()
   -- Show the speech bubble
   ToggleSpeechBubble(true)
+  if muteVolume == false then
+    local finishSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\startupLouder.ogg"
+    PlaySoundFile(finishSound, "Master")
+  end
 
   -- Schedule a timer to hide the speech bubble after 10 seconds
   C_Timer.After(10, function()
       ToggleSpeechBubble(false)
+      StopAnimations()
+      StartIdleAnimation()
+      if muteVolume == false then
+        local finishSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\finishLouder.ogg"
+        PlaySoundFile(finishSound, "Master")
+      end
+      talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
   end)
-  talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
-  StopAnimations()
-  StartIdleAnimation()
+  
+  
 end
 
 -- Function to make the DM3 talk on command
@@ -196,9 +206,48 @@ end
 SLASH_MYADDON_TALK1 = "/telljoke"
 SlashCmdList["MYADDON_TALK"] = TalkCommandHandler
 
+--[[
 SLASH_MYLITTLESHARKO1 = "/mls"
 SlashCmdList["MYLITTLESHARKO"] = function()
   InterfaceOptionsFrame_OpenToCategory("MyLittleSharko")
+end
+--]]
+
+SLASH_MYLITTLESHARKO_QUIET1 = "/mls"
+SlashCmdList["MYLITTLESHARKO_QUIET"] = function(msg)
+    if msg == "" or msg == "help" then
+        print("My Little Sharko Commands:")
+        print("/mls mute - Toggle Volume Mute")
+        print("/mls toggle - Toggle Sharko")
+    elseif msg == "mute" then
+        muteVolume = not muteVolume
+        if muteVolume then
+            print("Volume Muted")
+        else
+            print("Volume Unmuted")
+        end
+    elseif msg == "toggle" then
+        myCreatureFrame:SetShown(not myCreatureFrame:IsShown())
+        speechBubbleFrame:SetShown(myCreatureFrame:IsShown()) 
+        sharkoVisible = not sharkoVisible
+        --Disable timer when disabled
+        if sharkoVisible == false then
+          print("His free trial has Expired.")
+          if talkTimer then
+            talkTimer:Cancel()
+          elseif startTimer then
+            startTimer:Cancel()
+          end
+
+        else
+          Welcome()
+        end
+        if sharkoVisible == true then
+          print("RETURN OF THE KING")
+        end
+    else
+        print("Invalid command. Type /mls or /mls help for a list of commands.")
+    end
 end
 
 -- Schedule the initial talk
@@ -206,8 +255,7 @@ end
 myCreatureFrame:RegisterEvent("ADDON_LOADED")
 myCreatureFrame:SetScript("OnEvent", function(self, event, addon)
     if event == "ADDON_LOADED" and addon == "MyLittleSharko" then
-        StartTalkingAnimation() --THIS WONT FUCKING WORK, HE REFUSES TO FUCKING TALK WHEN YOU OPEN THE GAME
+        StartIdleAnimation()
         startTimer = C_Timer.NewTimer(10, Welcome)
-        addonTable.OnLoad(self)
     end
 end)
