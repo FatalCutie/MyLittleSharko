@@ -1,6 +1,12 @@
 --print("Thank you for contracting [ CORAL FEVER ] " .. UnitName("player") .. "!")
 LoadAddOn("MyLittleSharko_Assets_Scripts_dialogue")
 
+local MyAddonSettings = {
+  muteVolume = false
+}
+muteVolume = false
+
+
 local addonName, addonTable = ...
 
 function addonTable.OnLoad(self)
@@ -25,38 +31,23 @@ local MyAddonSettingsFrame = CreateFrame("Frame", "MyLittleSharkoSettingsFrame",
 MyAddonSettingsFrame.name = "MyLittleSharko"
 InterfaceOptions_AddCategory(MyAddonSettingsFrame)
 
---[[
-local MyAddonButton = CreateFrame("Button", "MyAddonButton", Minimap)
-MyAddonButton:SetSize(32, 32)
-MyAddonButton:SetPoint("BOTTOMLEFT", Minimap, "BOTTOMLEFT", 0, 0) -- Adjust the position as needed
+local MuteAddonCheckbox = CreateFrame("CheckButton", "MuteAddonCheckbox", MyAddonSettingsFrame, "UICheckButtonTemplate")
+MuteAddonCheckbox:SetPoint("TOPLEFT", 16, -40)
+--MuteAddonCheckbox.text:SetText("Mute Addon Volume")
 
--- Set a circular texture for the bubble appearance
-MyAddonButton:SetNormalTexture("Interface\\AddOns\\MyLittleSharko\\Assets\\closedMouthResize.tga")
-
-MyAddonButton:RegisterForClicks("AnyUp") -- Enable clicks
-
-MyAddonButton:SetScript("OnClick", function(self, button, down)
-    if button == "LeftButton" then
-        -- Add your functionality here (e.g., open settings, toggle a frame, etc.)
-        print("Left button clicked!")
-    elseif button == "RightButton" then
-        -- Add different functionality for right-click if needed
-        print("Right button clicked!")
-    end
+MuteAddonCheckbox:SetScript("OnClick", function(self)
+  local checked = self:GetChecked()
+  -- Add your logic to mute or unmute the addon's volume
+  if checked then
+      -- Mute the volume
+      muteVolume = true
+      print("Addon volume muted")
+  else
+      -- Unmute the volume
+      muteVolume = false
+      print("Addon volume unmuted")
+  end
 end)
-
--- Tooltip
-MyAddonButton:SetScript("OnEnter", function(self)
-    GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
-    GameTooltip:SetText("MyAddon", 1, 1, 1)
-    GameTooltip:AddLine("Click to open settings", 0.7, 0.7, 0.7)
-    GameTooltip:Show()
-end)
-
-MyAddonButton:SetScript("OnLeave", function(self)
-    GameTooltip:Hide()
-end)
---]]
 
 local currentIdleIndex = 1
 local currentTalkingIndex = 1
@@ -153,8 +144,10 @@ local function MakeCreatureTalk()
   UpdateSpeechText(newText)
   StopAnimations()
   StartTalkingAnimation()
-  local startSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\talkLouder.ogg"
-  PlaySoundFile(startSound, "Master")
+  if muteVolume == false then
+    local startSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\talkLouder.ogg"
+    PlaySoundFile(startSound, "Master")
+  end
   -- Show the speech bubble
   ToggleSpeechBubble(true)
   
@@ -162,8 +155,10 @@ local function MakeCreatureTalk()
   -- Schedule a timer to hide the speech bubble after 10 seconds
   C_Timer.After(10, function()
       ToggleSpeechBubble(false)
-      local finishSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\finishLouder.ogg"
-      PlaySoundFile(finishSound, "Master")
+      if muteVolume == false then
+        local finishSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\finishLouder.ogg"
+        PlaySoundFile(finishSound, "Master")
+      end
       StopAnimations()
       StartIdleAnimation()
   end)
