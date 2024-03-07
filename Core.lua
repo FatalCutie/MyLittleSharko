@@ -6,67 +6,64 @@ function tablelength(T)
     return count
   end
 
-  --[[
-local TimeInSeconds = 22
-local TimeInMinutes = math.floor(TimeInSeconds/60)
-
-  --Between 22 and 26 seconds per quip
-  --8 Second reading time
-  --]]
-
   --Initilzed DM3
   local myCreatureFrame = CreateFrame("Frame", "MyCreatureFrame", UIParent)
   myCreatureFrame:SetSize(150,150)
   myCreatureFrame:SetPoint("BOTTOMRIGHT", UIParent, "BOTTOMRIGHT", -75, 5)
 
-  local idleTextures = {
+  local idleSprites = {
     "Interface\\AddOns\\MyLittleSharko\\Assets\\closedMouthResize.tga",
     "Interface\\AddOns\\MyLittleSharko\\Assets\\closedMouthSquish.tga",
   }
 
-local currentSpriteIndex = 1 -- Start with the first sprite
-local spriteTimer -- Variable to hold the timer reference
+  local talkingSprites = {
+    "Interface\\AddOns\\MyLittleSharko\\Assets\\closedMouthResize.tga",
+    "Interface\\AddOns\\MyLittleSharko\\Assets\\openMouthResize.tga",
+}
+
+local currentIdleIndex = 1
+local currentTalkingIndex = 1
+local idleTimer
+local talkingTimer
 
   
 
-  local function UpdateSpriteTexture()
-    myCreatureFrame.myCreatureTexture:SetTexture(idleTextures[currentSpriteIndex])
+local function UpdateSpriteTexture(texture, spriteTable, currentIndex)
+  texture:SetTexture(spriteTable[currentIndex])
+end
+
+local function SwitchIdleSprites()
+  currentIdleIndex = currentIdleIndex % #idleSprites + 1
+  UpdateSpriteTexture(myCreatureFrame.myCreatureTexture, idleSprites, currentIdleIndex)
+end
+
+local function SwitchTalkingSprites()
+  currentTalkingIndex = currentTalkingIndex % #talkingSprites + 1
+  UpdateSpriteTexture(myCreatureFrame.myCreatureTexture, talkingSprites, currentTalkingIndex)
+end
+
+local function StartIdleAnimation()
+  idleTimer = C_Timer.NewTicker(1, SwitchIdleSprites)
+end
+
+local function StartTalkingAnimation()
+  talkingTimer = C_Timer.NewTicker(1, SwitchTalkingSprites)
+end
+
+local function StopAnimations()
+  if idleTimer then
+      idleTimer:Cancel()
   end
-
-local function SwitchSprites()
-    currentSpriteIndex = currentSpriteIndex % #idleTextures + 1
-    UpdateSpriteTexture()
-end
-
--- Function to start the sprite switching
-local function StartBreathingAnimation()
-    spriteTimer = C_Timer.NewTicker(1, SwitchSprites) -- Switch sprites every 3 seconds
-end
-
--- Function to stop the sprite switching
-local function StopBreathingAnimation()
-    if spriteTimer then
-        spriteTimer:Cancel()
-    end
+  if talkingTimer then
+      talkingTimer:Cancel()
+  end
 end
 
 --Puts DM3 on the frame
 myCreatureFrame.myCreatureTexture = myCreatureFrame:CreateTexture("MyCreatureTexture", "BACKGROUND")
 myCreatureFrame.myCreatureTexture:SetAllPoints(myCreatureFrame)
-myCreatureFrame.myCreatureTexture:SetTexture(idleTextures[currentSpriteIndex])
+myCreatureFrame.myCreatureTexture:SetTexture(idleSprites[currentIdleIndex])
 myCreatureFrame.myCreatureTexture:SetBlendMode("BLEND")
-
-StartBreathingAnimation()
-
-  -- Register the event for addon loading
-  --[[
-  myCreatureFrame:RegisterEvent("ADDON_LOADED")
-  myCreatureFrame:SetScript("OnEvent", function(self, event, addon)
-    if event == "ADDON_LOADED" and addon == "MyLittleSharko" then
-        StartBreathingAnimation()
-    end
-  end)
---]]
 
   --Create DM3 on Startup
   myCreatureFrame:RegisterEvent("PLAYER_LOGIN")
@@ -252,6 +249,8 @@ local function MakeCreatureTalk()
   newText = ""
   newText = dialogue()
   UpdateSpeechText(newText)
+  StopAnimations()
+  StartTalkingAnimation()
 
   -- Show the speech bubble
   ToggleSpeechBubble(true)
@@ -259,14 +258,16 @@ local function MakeCreatureTalk()
   -- Schedule a timer to hide the speech bubble after 10 seconds
   C_Timer.After(10, function()
       ToggleSpeechBubble(false)
+      StopAnimations()
+      StartIdleAnimation()
   end)
   talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
 end
 
 local function Welcome()
-  newText = "Thank you for contracting [ CORAL FEVER ] " .. UnitName("player") .. "!"
+  newText = "Thank you for contracting [CORAL FEVER]! I'm your new personal assistant, Destroyman III. I'll be giving you helpful tips and tricks!"
   UpdateSpeechText(newText)
-
+  --StartTalkingAnimation()
   -- Show the speech bubble
   ToggleSpeechBubble(true)
 
@@ -275,6 +276,8 @@ local function Welcome()
       ToggleSpeechBubble(false)
   end)
   talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
+  StopAnimations()
+  StartIdleAnimation()
 end
 
 -- Function to make the DM3 talk on command
@@ -293,25 +296,11 @@ SLASH_MYADDON_TALK1 = "/telljoke"
 SlashCmdList["MYADDON_TALK"] = TalkCommandHandler
 
 -- Schedule the initial talk
-Welcome()
 
---[[
--- Schedule a repeating timer to make the creature talk every 45 seconds
-C_Timer.NewTicker(45, MakeCreatureTalk)
-
-
-countdownTime = 5 --five seconds
-
-function timer(dt)
-    countdownTime = countdownTime - dt
-     if  countdownTime <= 0 then
-          local quip = dialogue()
-          --message(quip)
-          countdownTime = 5
-     end
-end
-
-local quip = dialogue()
-print(quip)
-
-]]
+myCreatureFrame:RegisterEvent("ADDON_LOADED")
+myCreatureFrame:SetScript("OnEvent", function(self, event, addon)
+    if event == "ADDON_LOADED" and addon == "MyLittleSharko" then
+        StartTalkingAnimation() --THIS WONT FUCKING WORK, HE REFUSES TO FUCKING TALK WHEN YOU OPEN THE GAME
+        startTimer = C_Timer.NewTimer(10, Welcome)
+    end
+end)
