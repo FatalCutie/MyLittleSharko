@@ -39,7 +39,7 @@ end
 
 local function SwitchTalkingSprites()
   currentTalkingIndex = currentTalkingIndex % #talkingSprites + 1
-  UpdateSpriteTexture(myCreatureFrame.myCreatureTexture, talkingSprites, currentTalkingIndex)
+  UpdateSpriteTexture(myCreatureFrame.myCreatureTexture, talkingSprites, currentTalkingIndex)  
 end
 
 local function StartIdleAnimation()
@@ -251,13 +251,17 @@ local function MakeCreatureTalk()
   UpdateSpeechText(newText)
   StopAnimations()
   StartTalkingAnimation()
-
+  local startSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\talkLouder.ogg"
+  PlaySoundFile(startSound, "Master")
   -- Show the speech bubble
   ToggleSpeechBubble(true)
+  
 
   -- Schedule a timer to hide the speech bubble after 10 seconds
   C_Timer.After(10, function()
       ToggleSpeechBubble(false)
+      local finishSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\finishLouder.ogg"
+      PlaySoundFile(finishSound, "Master")
       StopAnimations()
       StartIdleAnimation()
   end)
