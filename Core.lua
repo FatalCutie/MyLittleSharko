@@ -153,7 +153,6 @@ local function MakeCreatureTalk()
   -- Schedule a timer to hide the speech bubble after 10 seconds
   C_Timer.After(10, function()
       ToggleSpeechBubble(false)
-      talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
       if muteVolume == false then
         local finishSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\finishLouder.ogg"
         PlaySoundFile(finishSound, "Master")
@@ -161,6 +160,7 @@ local function MakeCreatureTalk()
       StopAnimations()
       StartIdleAnimation()
   end)
+  talkTimer = C_Timer.NewTimer(55, MakeCreatureTalk)
   
 end
 
@@ -185,8 +185,8 @@ local function Welcome()
         local finishSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\finishLouder.ogg"
         PlaySoundFile(finishSound, "Master")
       end
-      talkTimer = C_Timer.NewTimer(45, MakeCreatureTalk)
   end)
+  talkTimer = C_Timer.NewTimer(55, MakeCreatureTalk)
   
   
 end
