@@ -18,7 +18,7 @@ function tablelength(T)
 
   local talkingSprites = {
     "Interface\\AddOns\\MyLittleSharko\\Assets\\closedMouthResize.tga",
-    "Interface\\AddOns\\MyLittleSharko\\Assets\\openMouthResize.tga",
+    "Interface\\AddOns\\MyLittleSharko\\Assets\\openMouthSquish2.tga",
 }
 
 local currentIdleIndex = 1
