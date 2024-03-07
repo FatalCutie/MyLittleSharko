@@ -1,0 +1,17 @@
+<Ui xmlns="http://www.w3.org/2001/xmlschema-instance">
+  <Frame name="MyAddonMinimapButton" parent="Minimap">
+    <Size x="32" y="32"/>
+    <Scripts>
+      <OnLoad function="MyAddonMinimapButton_OnLoad"/>
+    </Scripts>
+    <Button name="$parentButton" parent="$parent" inherits="SecureHandlerClickTemplate">
+      <Size x="32" y="32"/>
+      <NormalTexture file="Interface\AddOns\MyLittleSharko\Textures\MinimapButtonNormal"/>
+      <PushedTexture file="Interface\AddOns\MyLittleSharko\Textures\MinimapButtonPushed"/>
+      <HighlightTexture file="Interface\Minimap\UI-Minimap-ZoomButton-Highlight"/>
+      <Scripts>
+        <OnLoad function="MyAddonMinimapButton_OnButtonLoad"/>
+      </Scripts>
+    </Button>
+  </Frame>
+</Ui>
