@@ -1,6 +1,6 @@
 ## Interface: 100007
 ##Title: My Little Sharko
-## Notes: Thank you for contracting [ CORAL FEVER ]! I'm your new personal assistant, Destroyman III. I'll be giving you helpful tips and tricks!
+## Notes: Thank you for contracting [CORAL FEVER]! I'm your new personal assistant, Destroyman III. I'll be giving you helpful tips and tricks!
 ## Author: FatalCutie [JCF]
 ## DefaultState: enabled
 ## Version: 0.8b
