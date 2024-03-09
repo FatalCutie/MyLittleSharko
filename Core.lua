@@ -28,6 +28,7 @@ local addonName, addonTable = ...
     "Interface\\AddOns\\MyLittleSharko\\Assets\\openMouthSquish2.tga",
 }
 
+--[[
 local MyAddonSettingsFrame = CreateFrame("Frame", "MyLittleSharkoSettingsFrame", InterfaceOptionsFramePanelContainer)
 MyAddonSettingsFrame.name = "MyLittleSharko"
 InterfaceOptions_AddCategory(MyAddonSettingsFrame)
@@ -50,6 +51,7 @@ MuteAddonCheckbox:SetScript("OnClick", function(self)
       print("Addon volume unmuted")
   end
 end)
+--]]
 
 local currentIdleIndex = 1
 local currentTalkingIndex = 1
@@ -222,7 +224,11 @@ myFrame:SetScript("OnEvent", function(self, event, ...)
     newText = ""
     randomDialogue = deathQuote()
     newText = randomDialogue
-    talkTimer:Cancel()
+    if talkTimer then
+      talkTimer:Cancel()
+    elseif startTimer then
+      startTimer:Cancel()
+    end
     UpdateSpeechText(newText)
     StopAnimations()
     StartTalkingAnimation()
