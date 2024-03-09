@@ -4,11 +4,30 @@ function tablelength(T)
     return count
   end
 
+jokebook = {}
+deathPhrases = {"Yikes?", "This is normal for you? Cool.", "Ok, back to the dog race.", "Ok, that one was deserved.", 
+"Erm...", "Awkward...", "HINT: DIE!!", "Yeowch.", "Just a game, right?", "Lol", 
+"In most major cities there's a few vendors that sell fishing rods. Fishing's more relaxing than whatever it is you're doing right now.",
+"Armor durability is essential during combat - you can talk to a blacksmith to repair yours next time.", "Maybe it's time for a new strategy?",
+"IT'S JUST ONE OF THOSE DAYS.", "Uh. Sorry, I guess?", "You didn't see that one? Uh. Nevermind.", "Oh, oh! Next time, you should try kiting. That's a good trick!",
+"Wouldn't let that happen to me."}
+  
+
 function dialogue()
     local choice = ""   
-    local jokebook = {}
+    --Picks a funny joke to say (they are jokes for legal reasons)
+    choice = jokebook[math.random(tablelength(jokebook))]
+    --print(choice)
+    --print(tablelength(jokebook))
+    return choice
 
-    --Thus Begins the Reckoning--
+end 
+
+function deathQuote()
+  local choice = ""
+  choice = deathPhrases[math.random(tablelength(deathPhrases))]
+  return choice
+end
 
     jokebook[0] = "I actually have access to a secret fifth meditation, I won't tell you how to get it though."
     jokebook[1] = "TIP: Overconfidence is a slow and insidious killer."
@@ -28,7 +47,7 @@ function dialogue()
     jokebook[15] = "Every good thing that happens to you in this game is preplanned like a show. There's an audience waiting for your downfall."
     jokebook[16] = "Fish names can be so silly. Did you know there's a seabream species calls 'Boops Boops'? There's a 'Dumb Gulper Shark' too. How mean!"
     jokebook[17] = "Rolling a " .. UnitClass("player") .."? Daring today, aren't we?"
-    jokebook[18] = "HINT: DIE!!"
+    jokebook[18] = "HINT: Bing Bong!"
     jokebook[19] = "HINT: Don't tell the Internal Revenue Sharkos that I'm here. Why? No particular reason."
     jokebook[20] = "HINT: Getting jumped at Duskwood? Just say 'no'! Legally, the other faction can't jump you if you refuse."
     jokebook[21] = "HINT: I should be rising in the sky..."
@@ -53,7 +72,7 @@ function dialogue()
     jokebook[41] = "MISSION: Determine if it's possible to prompt the sun to explode."
     jokebook[42] = "Moe.."
     jokebook[43] = "Never go to afterparties. Just go home."
-    jokebook[44] = "Ok, back to the dog race."
+    jokebook[44] = "Out of all my hosts you've been my favorite. Be sure to remind the others often."
     jokebook[45] = "Please join my fireteam. We're running a raid and need one more."
     jokebook[46] = "Seriously? You're wearing those boots with that helmet? Yikes."
     jokebook[47] = "So... come here often?"
@@ -99,7 +118,7 @@ function dialogue()
     jokebook[84] = "FACT: anyone who unironically says 'rizz' has never touched a woman. Yes I'm angry."
     jokebook[85] = "Ok is it ACTUALLY invisible or is everyone just stupid."
     jokebook[86] = "FACT: Listening to Operation Ground and Pound by Dragonforce during a pull increases your DPS by 8%."
-    jokebook[87] = "FACT: What?"
+    jokebook[87] = "HINT: You're loved and appreciated. Never forget there are people who care about you."
     jokebook[88] = "FACT: The only thing keeping Night Elves from being BIS is the fact you have to pick alliance to play one."
     jokebook[89] = "LEEEROOOYYYYYYYYY JEENNNKKIINNSSSSS!!!"
     jokebook[90] = "Joshua 9:7 - And the men of Israel said unto the Hivites, Peradventure ye dwell among us; and how shall we make a league with you?"
@@ -129,12 +148,3 @@ function dialogue()
     jokebook[114] = "FACT: Goblins used to exist in medieval times, and still do."
     jokebook[115] = "FACT: Goblins can turn trees into gold."
     jokebook[116] = "Frankly I find the idea of a bug that can think offensive."
-    
-
-    --Picks a funny joke to say (they are jokes for legal reasons)
-    choice = jokebook[math.random(tablelength(jokebook))]
-    --print(choice)
-    --print(tablelength(jokebook))
-    return choice
-
-end 

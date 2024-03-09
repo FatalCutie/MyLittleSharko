@@ -3,6 +3,10 @@ LoadAddOn("MyLittleSharko_Assets_Scripts_dialogue")
 
 muteVolume = false
 sharkoVisible = true
+local myFrame = CreateFrame("Frame")
+
+-- Register for the PLAYER_DEAD event
+myFrame:RegisterEvent("PLAYER_DEAD")
 
 -- Load the settings
 
@@ -213,12 +217,45 @@ SlashCmdList["MYLITTLESHARKO"] = function()
 end
 --]]
 
+myFrame:SetScript("OnEvent", function(self, event, ...)
+  if event == "PLAYER_DEAD" then
+    newText = ""
+    randomDialogue = deathQuote()
+    newText = randomDialogue
+    talkTimer:Cancel()
+    UpdateSpeechText(newText)
+    StopAnimations()
+    StartTalkingAnimation()
+    if muteVolume == false then
+      local startSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\talkLouder.ogg"
+      PlaySoundFile(startSound, "Master")
+    end
+    -- Show the speech bubble
+    ToggleSpeechBubble(true)
+    
+  
+    -- Schedule a timer to hide the speech bubble after 10 seconds
+    C_Timer.After(10, function()
+        ToggleSpeechBubble(false)
+        if muteVolume == false then
+          local finishSound = "Interface\\AddOns\\MyLittleSharko\\Assets\\finishLouder.ogg"
+          PlaySoundFile(finishSound, "Master")
+        end
+        StopAnimations()
+        StartIdleAnimation()
+    end)
+    talkTimer = C_Timer.NewTimer(55, MakeCreatureTalk)
+    
+  end
+end)
+
 SLASH_MYLITTLESHARKO_QUIET1 = "/mls"
 SlashCmdList["MYLITTLESHARKO_QUIET"] = function(msg)
     if msg == "" or msg == "help" then
         print("My Little Sharko Commands:")
         print("/mls mute - Toggle Volume Mute")
         print("/mls toggle - Toggle Sharko")
+        print("/mls joke - Force Sharko to tell youu a silly joke")
     elseif msg == "mute" then
         muteVolume = not muteVolume
         if muteVolume then
@@ -245,6 +282,11 @@ SlashCmdList["MYLITTLESHARKO_QUIET"] = function(msg)
         if sharkoVisible == true then
           print("RETURN OF THE KING")
         end
+        --[[
+      elseif msg == "telljoke" or msg == "joke" then
+        TalkCommandHandler()
+      end
+      --]]
     else
         print("Invalid command. Type /mls or /mls help for a list of commands.")
     end
