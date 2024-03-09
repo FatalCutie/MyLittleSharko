@@ -1,8 +1,9 @@
 --print("Thank you for contracting [ CORAL FEVER ] " .. UnitName("player") .. "!")
 LoadAddOn("MyLittleSharko_Assets_Scripts_dialogue")
 
-muteVolume = false
-sharkoVisible = true
+MyAddonSavedVars = MyAddonSavedVars or {}
+local muteVolume = MyAddonSavedVars.muteVolume or false
+local sharkoVisible = MyAddonSavedVars.sharkoVisible or true
 local myFrame = CreateFrame("Frame")
 
 -- Register for the PLAYER_DEAD event
@@ -261,9 +262,9 @@ SlashCmdList["MYLITTLESHARKO_QUIET"] = function(msg)
         print("My Little Sharko Commands:")
         print("/mls mute - Toggle Volume Mute")
         print("/mls toggle - Toggle Sharko")
-        print("/mls joke - Force Sharko to tell youu a silly joke")
     elseif msg == "mute" then
         muteVolume = not muteVolume
+        MyAddonSavedVars.muteVolume = muteVolume
         if muteVolume then
             print("Volume Muted")
         else
@@ -273,6 +274,7 @@ SlashCmdList["MYLITTLESHARKO_QUIET"] = function(msg)
         myCreatureFrame:SetShown(not myCreatureFrame:IsShown())
         speechBubbleFrame:SetShown(myCreatureFrame:IsShown()) 
         sharkoVisible = not sharkoVisible
+        MyAddonSavedVars.sharkoVisible = sharkoVisible
         --Disable timer when disabled
         if sharkoVisible == false then
           print("His free trial has Expired.")
