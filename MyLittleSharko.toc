@@ -1,10 +1,12 @@
-## Interface: 100007
+## Interface: 20505
 ## Title: My Little Sharko
-## SavedVariables: Scripts/savedVariables
-## Notes: Thank you for contracting [CORAL FEVER]! I'm your new personal assistant, Destroyman III. I'll be giving you helpful tips and tricks!
+## Notes: Thank you for contracting [CORAL FEVER]! I'm your new ...ant, Destroyman III. I'll be giving you helpful tips and tricks!
 ## Author: FatalCutie [JCF]
+## Version: 2.7.5
 ## DefaultState: enabled
-## Version: 0.8b
+## SavedVariables: MyAddonSavedVars
+
 Scripts/savedVariables.lua
 Core.lua
 Scripts/dialogue.lua
+Scripts/MyAddonMinimapButton.lua

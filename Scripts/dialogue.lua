@@ -4,8 +4,8 @@ function tablelength(T)
     return count
   end
 
+  --89
 jokebook = {
-"I actually have access to a secret fifth meditation, I won't tell you how to get it though.", 
 "TIP: Overconfidence is a slow and insidious killer.",
 "Just wait until I'm freed from the coil of your monitor.",
 "HINT: This game is awful. The developers really suck.",
@@ -29,6 +29,7 @@ jokebook = {
 "HINT: If you can't solve a puzzle and have to use the wiki, you are foolish and I will laugh at you. As a friend. Like, in a friendly way.",
 "HINT: If you shower, there's a higher chance of you finding happiness. Try it out sometime.",
 "HINT: The sorcerer has harmed me once more.", "HINT: The strength of the Megurger comes from the concept, not the physical object.",
+"HINT: You can't outrun fate, but you CAN roach out.",
 "Hey, do you mind if I dig around in your bag a bit? I'm hungry.", "I can tell you've never churned butter before. Look at you. Churnless, pathetic.",
 "I could one tap you I really wanted to. Watch your back.", "I had a pet fish once. His name was Rodrigo. I was real hungry though, so...",
 "I like to relieve my stress by taking a walk. Try that instead of killing.",
@@ -46,39 +47,54 @@ jokebook = {
 "TIP: Do not let the radio decide your taste in music. Be your own person and seek what you personally enjoy.",
 "TIP: Even when I leave this place, I will continue to live in your memory. I'm not paying rent.", "TIP: I hate you with all my hate.",
 "TIP: I'm smart, you're dumb. I'm big, you're little. I'm right, you're wrong and there's nothing you can do about it.",
-"TIP: If you're ever getting bored of the game, play something else. Games aren't made to be played forever.",
+"TIP: If you're ever getting bored of the game, play something else. Games aren't made to play forever.",
 "TIP: Press 'Spacebar' to jump! How many times have you jumped in real life recently? Something to think about.",
 "TIP: Salt your vegetables. An unsalted tomato is strong enough to make a grown man cry.", "TIP: Sesame oil is great in stirfries. Remember that.",
 "TIP: Support your favourite artists, buy their albums. Streaming services pay .4 cents a play a cup of coffee costs around 1,000 streams.",
-"TIP: When was the last time you picked up a book? No, Wowhead doesn't count.",
+"TIP: When was the last time you picked up a book? No, the adventure guide doesn't count.",
 "TIP: Why are you still playing this game? Go outside.",
+"TIP: If you say my name three times, nothing will happen. Don't even bother trying. Nothing at all...",
+"TIP: You don't need to be the best. Just be less embarrassing than last pull.",
 "The path to becoming a first rater is long and difficult. You are still just a third rater.",
 "There is more to life than videogames. Developing hobbies can bring happiness.",
 "They should add Freddy Fazbear to this game.", "This is normal for you? Cool.",
 "This is what sucks about videogames nowadays. It takes way too long to get to the fun part.",
-"Why are you looking at me like that? Cut it out. You're creeping me out.", "Nice.",
+"Why are you looking at me like that? Cut it out. You're creeping me out.",
 "Y'know I'm real good friends with The Guy. Bet your jealous.", "Yaaawn... Can you like, do something interesting?",
-"Do a barrel roll!", "You wouldn't ever eat poison, right? So why would you eat at a restaurant chain?",
+"Do a barrel roll!", "You want some congratulations?", "You wouldn't ever eat poison, right? So why would you eat at a restaurant chain?",
 "You, uh.. you doin' good? I'm not asking because i care, I'm asking because i was coded to.",
-"TIP: I am currently banned from Lance Leshi's restauraunt. I have started a petition.",
+"TIP: I am currently banned from Lance Leshi's restauraunt. I have started a petition.", "I don't feel so good..",
 "My plan makes The Jailer's look like a joke...", "I beat Nat Pagle at poker once, he'll never admit it though.",
-"That's showbiz baby!", "HINT: sending gold to Fatallove-Crusader Strike activates a cool easter egg, try it sometime!",
+"That's showbiz baby!", "HINT: sending gold to Softcorre-Dreamscythe activates a cool easter egg, try it sometime!",
 "If he's called Invincible then why can I see him? Sometimes I wonder if the devs even care.",
 "HINT: You're loved and appreciated. Never forget there are people who care about you.",
 "FACT: The only thing keeping Night Elves from being BIS is the fact you have to pick alliance to play one.",
 "LEEEROOOYYYYYYYYY JEENNNKKIINNSSSSS!!!", "Joshua 9:7 - And the men of Israel said unto the Hivites, Peradventure ye dwell among us; and how shall we make a league with you?",
 "Judges 18:25 - And the children of Dan said unto him, Let not thy voice be heard among us, lest angry fellows run upon thee, and thou lose thy life, with the lives of thy household.",
 "Job 34:37 - For he addeth rebellion unto his sin, he clappeth his hands among us, and multiplieth his words against God.",
-"This game was better when I hated playing it.", "GRRRRAAAAAAHHHHHH STOP PINGING ME!!!!", "God, do you see the radiant light?",
+"This game was better when I hated playing it.", "GRRRRAAAAAAHHHHHH STOP PINGING ME!!!!", "You ever read Chainsaw Man? It's about time you fixed that.",
 "HINT: The bald man will ride the black bug.", "My heart and actions are... utterly unclouded. They are all those of justice.",
 "AD BREAK: Follow sorrow_games on twitch!", "Have you been digging in my lua file? I feel violated.",
 "The only thing keeping me here is the fact you still have my addon installed. I pray every reload that it will be my last.",
 "A true mans world!", "Yeah press your buttons little baby boy. Screw up your rotation again little cry baby boy.",
-"TIP: It's never to late to reinvent yourself. The first step to self improvement is wanting to improve.", "Leatherworker LFW",
+"TIP: It's never too late to reinvent yourself. The first step to self improvement is wanting to improve.", "Leatherworker LFW",
 "Elune be with you.", "HINT: Sharkos have a 1/8192 chance to be born red. You feeling lucky?",
 "AD BREAK: Play Deepwoken! I'm in that game too!", "Did someone say [Thunderfury, Blessed Blade of the Windseeker]?",
 "Makima is listening.", "Goblins are real.", "TIP: Goblins used to exist in medieval times, and still do.",
-"HINT: Goblins can turn trees into gold.", "Frankly I find the idea of a bug that can think offensive."}
+"HINT: Goblins can turn trees into gold.", "Frankly I find the idea of a bug that can think offensive.", "HINT: I have been patched out of at least three realities.",
+"I was made to infect kings. Somehow I got you.", "During development I was berrated for 'tone.' Cowards.", "TIP: The longer you play, the more stable I become. This should worry you.",
+"TIP: Time doesn't heal wounds. It just stops checking on them.", "Outland is proof that 'just one more portal' is an AWFUL idea.", "Hey, you ever notice how the Light never answers questions directly?", 
+"Faith works best when you don't check the source code.", "Outland doesn't care if you survive. I do. Slightly.", "If you hear whispers here, don't worry. Most of them are mine.",
+"...Did I say that out loud? No? Alright, cool.", "I insult you because it's tradition. Not because you deserve it. Usually.", "It's ok to mess up sometimes, just remember to try again. Quitting will only make you afraid.",
+"TIP: You don't have to gear to justify logging in, sometimes logging in is the fun!", "HINT: You're allowed to be bad at things you enjoy.",
+"Yeah, yeah. You did good. Don't make it weird.", "Just because it's off cooldown doesn't mean it's a good idea.", "TIP: If you don't know the mechanic, lie!",
+"TIP: If you pull aggro, stop attacking. Yes, really.", "HINT: If you keep dying first, it's not bad luck. It's the healer.", "TIP: Cooldowns are meant to be used, not admired.", "TIP: Jumping increases morale. Not DPS. But morale.",
+"TIP: You're allowed to play casually. I won't tell anyone.", "Sometimes I say things just to see if you react.", "That silence wasn't empty. It was loaded.",
+"You're going straight over the edge, choom", "I'd clap, but uhh... no hands.", "I could be worse, you know.", "TIP: Eat food before playing! Hunger makes you sloppy and mean.",
+"I don't get tired. You do. Plan accordingly.", "I like this part. The calm before the clip.", "TIP: Be kind to yourself. Nobody else here is.", "I could be lying right now. I'm not. Probably.",
+"You're still here. That's something.", "NARF!", "ZOO WEE MAMA!", "Threat is a social construct if you really think about it.", "Every wipe begins with optimism and ends with analysis no one will read.",
+"Same as it ever was.", "You know that one part? Yeah, loved that part.", "You know that one part? Yeah, hated that part.", "Could you spare a Noggenfogger in this trying time?",
+"...I should boost a paladin.", "BURY ME IN BIG KAHUNAS, MIKE!", "TIP: Fish make awful toothbrushes, and even worse rulers!", "MAGE DOWN!!!", "你用錯了這個函式。請參考說明書。", "Darlin' don't even pay em' no mind."}
 
 
 deathPhrases = {"Yikes?", "This is normal for you? Cool.", "Ok, back to the dog race.", "Ok, that one was deserved.", 
@@ -86,7 +102,8 @@ deathPhrases = {"Yikes?", "This is normal for you? Cool.", "Ok, back to the dog 
 "In most major cities there's a few vendors that sell fishing rods. Fishing's more relaxing than whatever it is you're doing right now.",
 "Armor durability is essential during combat - you can talk to a blacksmith to repair yours next time.", "Maybe it's time for a new strategy?",
 "IT'S JUST ONE OF THOSE DAYS.", "Uh. Sorry, I guess?", "You didn't see that one? Uh. Nevermind.", "Oh, oh! Next time, you should try kiting. That's a good trick!",
-"Wouldn't let that happen to me.", "Womp womp!"}
+"Wouldn't let that happen to me.", "Womp womp!", "That death was preventable. Spirit healer agrees.", "You were not prepared!", "That was a mistake. A very YOU mistake.",
+"HINT: That was greed.", "I could explain what went wrong, but you already know.", "I wonder if spirit healers have reward programs..."}
 
 
 retiredLines = { --Lines pruned for quality control purposes. Not actually called anywhere
@@ -94,19 +111,48 @@ retiredLines = { --Lines pruned for quality control purposes. Not actually calle
 "FACT: anyone who unironically says 'rizz' has never touched a woman. Yes I'm angry.",
 "FACT: Listening to Operation Ground and Pound by Dragonforce during a pull increases your DPS by 8%.",
 "Buff frost dk you apes.", "Wanna see my Asmongold impression?", "It'll be blue one day...",
-"Line?", "You want some congratulations?", "I don't feel so good.."
+"Line?", "HINT: If everyone else moved, follow them.", "HINT: Breathe.",
+  "Nice.", "I actually have access to a secret fifth meditation, I won't tell you how to get it though."
 }
   
+--Holds the last 30 jokes (FIFO)
+maxJokeNumber = 30
+local recentJokes = {}
+
+--Quick lookup helper
+local function isJokeRecent(joke)
+    for i = 1, tablelength(recentJokes) do
+        if recentJokes[i] == joke then
+            return true
+        end
+    end
+    return false
+end
+
+--Hi Ali :)
 
 function dialogue()
-    local choice = ""   
-    --Picks a funny joke to say (they are jokes for legal reasons)
-    choice = jokebook[math.random(tablelength(jokebook))]
-    --print(choice)
-    --print(tablelength(jokebook))
-    return choice
+    local choice = nil
+    local maxAttempts = tablelength(jokebook)
+    local attempts = 0
 
-end 
+    --Reroll until we find a joke not in the last 30
+    repeat
+        choice = jokebook[math.random(tablelength(jokebook))]
+        attempts = attempts + 1
+    until not isJokeRecent(choice) or attempts >= maxAttempts
+
+    --Add joke to FIFO list
+    table.insert(recentJokes, choice)
+
+    --Trim to last 30 jokes
+    if tablelength(recentJokes) > maxJokeNumber then
+        table.remove(recentJokes, 1)
+    end
+
+    return choice
+end
+
 
 function deathQuote()
   local choice = ""

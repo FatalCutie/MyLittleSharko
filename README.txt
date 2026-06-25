@@ -3,9 +3,6 @@ I'm your new personal assistant, Destroyman III.
 I'll be giving you helpful tips and tricks!
 
 [COMMANDS]
-/mls - Prints Help
-/mls help - Prints Help
-/mls mute - Mutes Addon
-/mls toggle - Toggles Sharko
+/mls - opens settings
 
 I hope you enjoy!
